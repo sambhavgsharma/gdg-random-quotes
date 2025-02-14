@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact Us</title>
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <style>
+    /* Custom styling for the error message */
+    .error-message {
+      display: none;
+      font-size: 0.875rem;
+      color: red;
+    }
+    .error-message.show {
+      display: block;
+    }
+  </style>
+</head>
+<body class="bg-gray-100 text-gray-900">
+
+  <section class="min-h-screen flex justify-center items-center">
+    <div class="bg-white p-8 rounded-lg shadow-lg w-full max-w-md">
+      <h2 class="text-3xl font-semibold text-center text-indigo-600 mb-8">Contact Us</h2>
+
+      <form id="contactForm" class="space-y-4">
+        <div>
+          <label for="name" class="block text-sm font-medium text-gray-700">Name</label>
+          <input type="text" id="name" name="name" class="mt-2 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500" required>
+          <p id="nameError" class="error-message">Name is required</p>
+        </div>
+
+        <div>
+          <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
+          <input type="email" id="email" name="email" class="mt-2 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500" required>
+          <p id="emailError" class="error-message">Please enter a valid email</p>
+        </div>
+
+        <div>
+          <label for="message" class="block text-sm font-medium text-gray-700">Message</label>
+          <textarea id="message" name="message" rows="4" class="mt-2 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500" required></textarea>
+          <p id="messageError" class="error-message">Message is required</p>
+        </div>
+
+        <div>
+          <button type="submit" class="w-full bg-indigo-600 text-white py-2 px-4 rounded-md hover:bg-indigo-700 focus:outline-none">Submit</button>
+        </div>
+      </form>
+
+      <p class="text-center text-sm mt-4 text-gray-600">&copy; 2025 Your Company</p>
+    </div>
+  </section>
+
+  <script>
+    // Handle form validation and submission
+    document.addEventListener('DOMContentLoaded', function () {
+      const contactForm = document.getElementById('contactForm');
+      
+      contactForm.addEventListener('submit', function(event) {
+        event.preventDefault(); // Prevent form from submitting
+
+        let valid = true;
+
+        // Reset error messages
+        document.getElementById('nameError').classList.remove('show');
+        document.getElementById('emailError').classList.remove('show');
+        document.getElementById('messageError').classList.remove('show');
+
+        // Name validation
+        const name = document.getElementById('name').value.trim();
+        if (name === '') {
+          valid = false;
+          document.getElementById('nameError').classList.add('show');
+        }
+
+        // Email validation
+        const email = document.getElementById('email').value.trim();
+        const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+        if (!emailPattern.test(email)) {
+          valid = false;
+          document.getElementById('emailError').classList.add('show');
+        }
+
+        // Message validation
+        const message = document.getElementById('message').value.trim();
+        if (message === '') {
+          valid = false;
+          document.getElementById('messageError').classList.add('show');
+        }
+
+        // If form is valid, show a success message
+        if (valid) {
+          alert('Form submitted successfully!');
+          // Optionally, reset the form
+          contactForm.reset();
+        }
+      });
+    });
+  </script>
+
+</body>
+</html>
